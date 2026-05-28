@@ -1,0 +1,10 @@
+[
+  { "id": 1, "en": "Hello", "zh": "你好", "part": "greeting" },
+  { "id": 2, "en": "Apple", "zh": "苹果", "part": "noun" },
+  { "id": 3, "en": "Beautiful", "zh": "美丽的", "part": "adjective" },
+  { "id": 4, "en": "Journey", "zh": "旅程", "part": "noun" },
+  { "id": 5, "en": "Courage", "zh": "勇气", "part": "noun" },
+  { "id": 6, "en": "Whisper", "zh": "低语", "part": "verb/noun" },
+  { "id": 7, "en": "Brilliant", "zh": "杰出的", "part": "adjective" },
+  { "id": 8, "en": "Sunset", "zh": "日落", "part": "noun" }
+]

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LingoHub - Multi-Language Learning</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="bg-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+
+  <div class="container">
+    <header class="header">
+      <h1 class="logo"><span class="logo-highlight">Lingo</span>Hub</h1>
+      <div class="header-right">
+        <div class="score-display" id="scoreDisplay">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <span id="scoreText" data-en="Score: {0}" data-zh="得分：{0}">得分：0</span>
+        </div>
+        <div class="lang-switch">
+          <button class="lang-btn active" data-lang="zh" id="btnZh">中文</button>
+          <button class="lang-btn" data-lang="en" id="btnEn">EN</button>
+        </div>
+      </div>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="flashcard" id="tabFlashcard">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+        <span data-en="Flashcards" data-zh="闪卡模式">闪卡模式</span>
+      </button>
+      <button class="tab" data-tab="quiz" id="tabQuiz">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+        <span data-en="Quiz" data-zh="测验模式">测验模式</span>
+      </button>
+    </nav>
+
+    <div class="view" id="flashcardView">
+      <div class="progress-bar-container"><div class="progress-bar" id="flashcardProgress"></div></div>
+      <div class="progress-text" id="flashcardProgressText" data-en="Card {0} of {1}" data-zh="卡片 {0} / {1}">卡片 1 / 7</div>
+      <div class="card-stack" id="cardStack">
+        <div class="flashcard" id="flashcard">
+          <div class="card-inner" id="cardInner">
+            <div class="card-front">
+              <span class="card-label" data-en="Word" data-zh="单词">单词</span>
+              <span class="card-word" id="cardWord">Hello</span>
+            </div>
+            <div class="card-back">
+              <span class="card-label" data-en="Meaning" data-zh="释义">释义</span>
+              <span class="card-meaning" id="cardMeaning">你好</span>
+              <span class="card-part" id="cardPart"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-hint" data-en="Click card to flip" data-zh="点击卡片翻转">点击卡片翻转</div>
+      <div class="nav-buttons">
+        <button class="nav-btn" id="prevCard" disabled>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          <span data-en="Previous" data-zh="上一个">上一个</span>
+        </button>
+        <button class="nav-btn" id="nextCard">
+          <span data-en="Next" data-zh="下一个">下一个</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="view hidden" id="quizView">
+      <div class="quiz-header">
+        <div class="quiz-question-number" id="quizQuestionNum" data-en="Question {0} of {1}" data-zh="第 {0} 题 / 共 {1} 题">第 1 题 / 共 7 题</div>
+        <div class="quiz-score" id="quizScore" data-en="Score: {0}/{1}" data-zh="得分：{0}/{1}">得分：0/0</div>
+      </div>
+      <div class="quiz-card">
+        <div class="quiz-prompt" data-en="What does this word mean?" data-zh="这个单词是什么意思？">这个单词是什么意思？</div>
+        <div class="quiz-word" id="quizWord">Hello</div>
+        <div class="quiz-options" id="quizOptions"></div>
+      </div>
+      <button class="quiz-next-btn" id="quizNextBtn" disabled>
+        <span data-en="Next Question" data-zh="下一题">下一题</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    <div class="view hidden" id="resultView">
+      <div class="result-card">
+        <div class="result-icon" id="resultIcon">🎉</div>
+        <div class="result-title" id="resultTitle">Great Job!</div>
+        <div class="result-score" id="resultScore">0 / 7</div>
+        <div class="result-message" id="resultMessage" data-en="You got {0} out of {1} correct!" data-zh="你答对了 {0} / {1} 题！">你答对了 0 / 7 题！</div>
+        <button class="restart-btn" id="restartQuiz">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+          <span data-en="Try Again" data-zh="再来一次">再来一次</span>
+        </button>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>LingoHub &copy; 2026 &mdash; <span data-en="Learn anytime, anywhere" data-zh="随时随地，轻松学习">随时随地，轻松学习</span></p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
