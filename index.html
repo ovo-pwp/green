@@ -15,9 +15,18 @@
   </div>
 
   <div class="container">
+    <!-- Header -->
     <header class="header">
       <h1 class="logo"><span class="logo-highlight">Lingo</span>Hub</h1>
       <div class="header-right">
+        <button class="icon-btn theme-toggle" id="themeToggle" title="Toggle theme">
+          <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+          <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+          </svg>
+        </button>
         <div class="score-display" id="scoreDisplay">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           <span id="scoreText" data-en="Score: {0}" data-zh="得分：{0}">得分：0</span>
@@ -29,6 +38,22 @@
       </div>
     </header>
 
+    <!-- Category Filter -->
+    <div class="category-bar">
+      <label class="category-label" data-en="Category:" data-zh="分类：">分类：</label>
+      <select class="category-select" id="categorySelect">
+        <option value="all" data-en="All Words" data-zh="全部单词">全部单词</option>
+        <option value="daily" data-en="Daily" data-zh="日常">日常</option>
+        <option value="food" data-en="Food" data-zh="食物">食物</option>
+        <option value="transport" data-en="Transport" data-zh="交通">交通</option>
+        <option value="emotion" data-en="Emotion" data-zh="情绪">情绪</option>
+        <option value="nature" data-en="Nature" data-zh="自然">自然</option>
+        <option value="work" data-en="Work" data-zh="工作">工作</option>
+      </select>
+      <span class="category-count" id="categoryCount" data-en="{0} words" data-zh="{0} 个单词">19 个单词</span>
+    </div>
+
+    <!-- Mode Tabs -->
     <nav class="tabs">
       <button class="tab active" data-tab="flashcard" id="tabFlashcard">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
@@ -40,15 +65,44 @@
       </button>
     </nav>
 
+    <!-- Stats Panel (hidden by default) -->
+    <div class="stats-panel hidden" id="statsPanel">
+      <div class="stats-header">
+        <span class="stats-title" data-en="Statistics" data-zh="学习统计">学习统计</span>
+        <button class="stats-close" id="statsClose">&times;</button>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="statTotal">19</div>
+          <div class="stat-label" data-en="Total Words" data-zh="总单词数">总单词数</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statMastered">0</div>
+          <div class="stat-label" data-en="Mastered" data-zh="已掌握">已掌握</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statAccuracy">--</div>
+          <div class="stat-label" data-en="Accuracy" data-zh="正确率">正确率</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flashcard View -->
     <div class="view" id="flashcardView">
       <div class="progress-bar-container"><div class="progress-bar" id="flashcardProgress"></div></div>
-      <div class="progress-text" id="flashcardProgressText" data-en="Card {0} of {1}" data-zh="卡片 {0} / {1}">卡片 1 / 7</div>
+      <div class="progress-text" id="flashcardProgressText" data-en="Card {0} of {1}" data-zh="卡片 {0} / {1}">卡片 1 / 19</div>
       <div class="card-stack" id="cardStack">
         <div class="flashcard" id="flashcard">
           <div class="card-inner" id="cardInner">
             <div class="card-front">
               <span class="card-label" data-en="Word" data-zh="单词">单词</span>
               <span class="card-word" id="cardWord">Hello</span>
+              <button class="speaker-btn" id="speakerFront" title="Listen">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                  <path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>
+                </svg>
+              </button>
             </div>
             <div class="card-back">
               <span class="card-label" data-en="Meaning" data-zh="释义">释义</span>
@@ -58,7 +112,7 @@
           </div>
         </div>
       </div>
-      <div class="card-hint" data-en="Click card to flip" data-zh="点击卡片翻转">点击卡片翻转</div>
+      <div class="card-hint" data-en="Click card to flip  |  Space to flip  |  Arrow keys to navigate" data-zh="点击卡片翻转  |  空格翻转  |  方向键切换">点击卡片翻转  |  空格翻转  |  方向键切换</div>
       <div class="nav-buttons">
         <button class="nav-btn" id="prevCard" disabled>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
@@ -71,14 +125,23 @@
       </div>
     </div>
 
+    <!-- Quiz View -->
     <div class="view hidden" id="quizView">
       <div class="quiz-header">
-        <div class="quiz-question-number" id="quizQuestionNum" data-en="Question {0} of {1}" data-zh="第 {0} 题 / 共 {1} 题">第 1 题 / 共 7 题</div>
+        <div class="quiz-question-number" id="quizQuestionNum" data-en="Question {0} of {1}" data-zh="第 {0} 题 / 共 {1} 题">第 1 题 / 共 19 题</div>
         <div class="quiz-score" id="quizScore" data-en="Score: {0}/{1}" data-zh="得分：{0}/{1}">得分：0/0</div>
       </div>
       <div class="quiz-card">
         <div class="quiz-prompt" data-en="What does this word mean?" data-zh="这个单词是什么意思？">这个单词是什么意思？</div>
-        <div class="quiz-word" id="quizWord">Hello</div>
+        <div class="quiz-word-row">
+          <span class="quiz-word" id="quizWord">Hello</span>
+          <button class="speaker-btn speaker-quiz" id="speakerQuiz" title="Listen">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>
+            </svg>
+          </button>
+        </div>
         <div class="quiz-options" id="quizOptions"></div>
       </div>
       <button class="quiz-next-btn" id="quizNextBtn" disabled>
@@ -87,12 +150,13 @@
       </button>
     </div>
 
+    <!-- Quiz Result -->
     <div class="view hidden" id="resultView">
       <div class="result-card">
         <div class="result-icon" id="resultIcon">🎉</div>
         <div class="result-title" id="resultTitle">Great Job!</div>
-        <div class="result-score" id="resultScore">0 / 7</div>
-        <div class="result-message" id="resultMessage" data-en="You got {0} out of {1} correct!" data-zh="你答对了 {0} / {1} 题！">你答对了 0 / 7 题！</div>
+        <div class="result-score" id="resultScore">0 / 19</div>
+        <div class="result-message" id="resultMessage" data-en="You got {0} out of {1} correct!" data-zh="你答对了 {0} / {1} 题！">你答对了 0 / 19 题！</div>
         <button class="restart-btn" id="restartQuiz">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
           <span data-en="Try Again" data-zh="再来一次">再来一次</span>
@@ -100,6 +164,30 @@
       </div>
     </div>
 
+    <!-- Daily Check-in -->
+    <div class="checkin-section" id="checkinSection">
+      <div class="checkin-card">
+        <div class="checkin-info">
+          <div class="checkin-streak" id="checkinStreak">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <span id="streakText" data-en="Streak: {0} days" data-zh="连续打卡：{0} 天">连续打卡：0 天</span>
+          </div>
+          <div class="checkin-studied" id="checkinStudied" data-en="Studied {0} words today" data-zh="今日已学 {0} 个单词">今日已学 0 个单词</div>
+        </div>
+        <button class="checkin-btn" id="checkinBtn" disabled>
+          <span data-en="Check In" data-zh="打卡">打卡</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Stats trigger (floating button) -->
+    <button class="stats-trigger" id="statsTrigger" title="Statistics">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 20V10M12 20V4M6 20v-6"/>
+      </svg>
+    </button>
+
+    <!-- Footer -->
     <footer class="footer">
       <p>LingoHub &copy; 2026 &mdash; <span data-en="Learn anytime, anywhere" data-zh="随时随地，轻松学习">随时随地，轻松学习</span></p>
     </footer>
