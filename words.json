@@ -1,21 +1,27 @@
-[
-  { "id": 1, "en": "Hello", "zh": "你好", "part": "greeting", "category": "daily" },
-  { "id": 2, "en": "Goodbye", "zh": "再见", "part": "greeting", "category": "daily" },
-  { "id": 3, "en": "Please", "zh": "请", "part": "adverb", "category": "daily" },
-  { "id": 4, "en": "Thank you", "zh": "谢谢", "part": "phrase", "category": "daily" },
-  { "id": 5, "en": "Apple", "zh": "苹果", "part": "noun", "category": "food" },
-  { "id": 6, "en": "Bread", "zh": "面包", "part": "noun", "category": "food" },
-  { "id": 7, "en": "Delicious", "zh": "美味的", "part": "adjective", "category": "food" },
-  { "id": 8, "en": "Journey", "zh": "旅程", "part": "noun", "category": "transport" },
-  { "id": 9, "en": "Bridge", "zh": "桥", "part": "noun", "category": "transport" },
-  { "id": 10, "en": "Airport", "zh": "机场", "part": "noun", "category": "transport" },
-  { "id": 11, "en": "Courage", "zh": "勇气", "part": "noun", "category": "emotion" },
-  { "id": 12, "en": "Excited", "zh": "兴奋的", "part": "adjective", "category": "emotion" },
-  { "id": 13, "en": "Peaceful", "zh": "平静的", "part": "adjective", "category": "emotion" },
-  { "id": 14, "en": "Sunset", "zh": "日落", "part": "noun", "category": "nature" },
-  { "id": 15, "en": "Ocean", "zh": "海洋", "part": "noun", "category": "nature" },
-  { "id": 16, "en": "Mountain", "zh": "山", "part": "noun", "category": "nature" },
-  { "id": 17, "en": "Brilliant", "zh": "杰出的", "part": "adjective", "category": "work" },
-  { "id": 18, "en": "Deadline", "zh": "截止日期", "part": "noun", "category": "work" },
-  { "id": 19, "en": "Achieve", "zh": "达成", "part": "verb", "category": "work" }
-]
+{
+  "beginner": [
+    { "id": 1, "en": "Hello", "zh": "你好", "part": "greeting", "category": "daily", "level": "beginner" },
+    { "id": 2, "en": "Goodbye", "zh": "再见", "part": "greeting", "category": "daily", "level": "beginner" },
+    { "id": 3, "en": "Please", "zh": "请", "part": "adverb", "category": "daily", "level": "beginner" },
+    { "id": 4, "en": "Thank you", "zh": "谢谢", "part": "phrase", "category": "daily", "level": "beginner" },
+    { "id": 5, "en": "Apple", "zh": "苹果", "part": "noun", "category": "food", "level": "beginner" },
+    { "id": 6, "en": "Bread", "zh": "面包", "part": "noun", "category": "food", "level": "beginner" },
+    { "id": 7, "en": "Delicious", "zh": "美味的", "part": "adjective", "category": "food", "level": "beginner" },
+    { "id": 8, "en": "Journey", "zh": "旅程", "part": "noun", "category": "transport", "level": "beginner" },
+    { "id": 9, "en": "Bridge", "zh": "桥", "part": "noun", "category": "transport", "level": "beginner" },
+    { "id": 10, "en": "Airport", "zh": "机场", "part": "noun", "category": "transport", "level": "beginner" },
+    { "id": 14, "en": "Sunset", "zh": "日落", "part": "noun", "category": "nature", "level": "beginner" },
+    { "id": 15, "en": "Ocean", "zh": "海洋", "part": "noun", "category": "nature", "level": "beginner" }
+  ],
+  "intermediate": [
+    { "id": 11, "en": "Courage", "zh": "勇气", "part": "noun", "category": "emotion", "level": "intermediate" },
+    { "id": 12, "en": "Excited", "zh": "兴奋的", "part": "adjective", "category": "emotion", "level": "intermediate" },
+    { "id": 13, "en": "Peaceful", "zh": "平静的", "part": "adjective", "category": "emotion", "level": "intermediate" },
+    { "id": 16, "en": "Mountain", "zh": "山", "part": "noun", "category": "nature", "level": "intermediate" },
+    { "id": 17, "en": "Brilliant", "zh": "杰出的", "part": "adjective", "category": "work", "level": "intermediate" }
+  ],
+  "advanced": [
+    { "id": 18, "en": "Deadline", "zh": "截止日期", "part": "noun", "category": "work", "level": "advanced" },
+    { "id": 19, "en": "Achieve", "zh": "达成", "part": "verb", "category": "work", "level": "advanced" }
+  ]
+}

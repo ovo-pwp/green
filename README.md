@@ -18,7 +18,7 @@ lingohub/
 ├── index.html    # Main page
 ├── style.css     # Stylesheet
 ├── script.js     # Core logic
-├── words.json    # Word bank (8 words, easily expandable)
+├── words.json    # Word bank (119 words, supports difficulty levels)
 └── README.md     # Project documentation
 ```
 
@@ -39,11 +39,27 @@ lingohub/
 
 ## Adding More Words
 
-Edit `words.json` to add new entries. Each entry requires:
+`words.json` 现在支持两种格式：扁平数组（旧格式）或按难度分组的对象（新格式）。示例如下：
 
+旧格式（扁平数组）：
 ```json
-{ "id": number, "en": "English Word", "zh": "中文释义", "part": "word type (optional)" }
+[
+   { "id": 1, "en": "English Word", "zh": "中文释义", "part": "word type", "category": "category" }
+]
 ```
+
+新格式（按难度分组）：
+```json
+{
+   "beginner": [
+      { "id": 1, "en": "English Word", "zh": "中文释义", "part": "word type", "category": "category", "level": "beginner" }
+   ],
+   "intermediate": [ ... ],
+   "advanced": [ ... ]
+}
+```
+
+每条词条建议包含 `category` 与可选的 `level` 字段（"beginner"/"intermediate"/"advanced"）。脚本会自动识别并合并两种格式。
 
 ## GitHub Pages Deployment
 

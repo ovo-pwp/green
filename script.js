@@ -12,6 +12,7 @@ let filtered = [];        // Currently filtered words
 let currentLang = 'zh';
 let currentMode = 'flashcard';
 let currentCategory = 'all';
+let currentLevel = 'all';
 let currentCardIndex = 0;
 let quizQuestions = [];
 let quizIndex = 0;
@@ -50,6 +51,7 @@ const resultIcon = $('#resultIcon');
 const resultTitle = $('#resultTitle');
 const categorySelect = $('#categorySelect');
 const categoryCount = $('#categoryCount');
+const levelSelect = $('#levelSelect');
 const statsPanel = $('#statsPanel');
 const checkinBtn = $('#checkinBtn');
 const checkinStreak = $('#checkinStreak');
@@ -147,6 +149,25 @@ document.getElementById('btnEn').addEventListener('click', () => switchLang('en'
 function loadProgress() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
   catch { return {}; }
+}
+
+function normalizeWordsData(raw) {
+  if (Array.isArray(raw)) return raw;
+  if (raw && typeof raw === 'object') {
+    const levels = ['beginner', 'intermediate', 'advanced'];
+    let combined = [];
+    levels.forEach((level) => {
+      if (Array.isArray(raw[level])) {
+        const arr = raw[level].map((w) => (w.level ? w : Object.assign({}, w, { level })));
+        combined = combined.concat(arr);
+      }
+    });
+    if (combined.length === 0) {
+      Object.values(raw).forEach((v) => { if (Array.isArray(v)) combined = combined.concat(v); });
+    }
+    return combined;
+  }
+  return [];
 }
 
 function saveProgress(progress) {
@@ -321,16 +342,28 @@ $('#statsClose').addEventListener('click', () => statsPanel.classList.add('hidde
 // Category Filter
 // ============================================================
 function updateFilteredWords() {
-  if (currentCategory === 'all') {
-    filtered = [...words];
-  } else {
-    filtered = words.filter(w => w.category === currentCategory);
+  let base = Array.isArray(words) ? [...words] : [];
+  if (currentCategory !== 'all') {
+    base = base.filter((w) => w.category === currentCategory);
   }
+  if (currentLevel !== 'all') {
+    base = base.filter((w) => (w.level || '').toString() === currentLevel);
+  }
+  filtered = base;
   categoryCount.textContent = t(categoryCount, currentLang, filtered.length);
 }
 
 categorySelect.addEventListener('change', () => {
   currentCategory = categorySelect.value;
+  updateFilteredWords();
+  currentCardIndex = 0;
+  if (currentMode === 'flashcard') renderCard();
+  else if (currentMode === 'quiz') { generateQuiz(); renderQuizQuestion(); }
+  updateStats();
+});
+
+levelSelect && levelSelect.addEventListener('change', () => {
+  currentLevel = levelSelect.value;
   updateFilteredWords();
   currentCardIndex = 0;
   if (currentMode === 'flashcard') renderCard();
@@ -554,7 +587,8 @@ document.querySelectorAll('.tab').forEach(tab => {
 async function init() {
   try {
     const resp = await fetch('words.json');
-    words = await resp.json();
+    const raw = await resp.json();
+    words = normalizeWordsData(raw);
   } catch (e) {
     console.error('Failed to load words.json', e);
     words = [];

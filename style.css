@@ -135,6 +135,14 @@ body {
 }
 .category-select:focus { border-color: var(--primary-light); }
 .category-count { font-size: 13px; color: var(--text-muted); white-space: nowrap; }
+.level-select {
+  margin-left: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.03);
+  color: inherit;
+}
 
 /* === Tabs === */
 .tabs {
